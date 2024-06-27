@@ -44,7 +44,7 @@
               </div>
               <div class="mb-3">
                 <label for="profile_pic" class="form-label">Profile Picture</label>
-                <input type="file" class="form-control" id="profile_pic" name="profile_pic" required accept=".png,.jpg,jpeg">
+                <input type="file" class="form-control" id="profile_pic" name="profile_pic" required accept=".png,.jpg">
               </div>
               <div class="mb-3">
                 <label for="designation" class="form-label">Designation</label>

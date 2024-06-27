@@ -24,8 +24,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "The email has already been used";
             exit;
         }
-        if(!is_picture_valid()) {
-            echo "The picture is not valid"; 
+        if(check_file_validity()) {
+            $errors = check_file_validity();
+            foreach($errors as $err) {
+                echo $err . "<br>";
+            }
             exit;
         }
 
@@ -34,8 +37,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $tmp_name = $profile_pic['tmp_name'];
 
         // set the directory where the file will be uploaded
+        $random_number = (string) rand(1000, 9999); 
         $target_dir = "pictures/";
-        $target_file = $target_dir . $filename; 
+        $target_file = $target_dir . $random_number . '_' . $filename; 
 
         // keep the uploaded file 
         move_uploaded_file($tmp_name, $target_file); 
@@ -57,6 +61,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindParam(":user_role", $user_role);
 
         $statement->execute(); 
+
+        // redirect to dashboard after registering new user
+        header('Location: dashboard.php');
+
     }
     catch(Exception $e) {
         echo "error: " . $e->getMessage();

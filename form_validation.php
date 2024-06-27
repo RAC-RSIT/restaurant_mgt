@@ -61,46 +61,33 @@
     }
 
 
-    function is_picture_valid() {
+    function check_file_validity() {
 
         include('db_connection.php');
 
-        $allowed_mime_types = array('image/jpg', 'image/png');
         $allowed_extensions = array('jpg', 'png');
         $max_file_size = 1048576; // 1MB
-        // $upload_dir = 'pictures/';   
         
         if (isset($_FILES['profile_pic'])) {
-          $errors = []; // array to store any errors
+          $errors = []; // array to store all errors
         
           // check for upload error
           if ($_FILES['profile_pic']['error'] !== 0) {
             $errors[] = "Error uploading file: " . $_FILES['profile_pic']['error'];
-            return false;
-          }
-        
-          // validate MIME type
-          if (!in_array($_FILES['profile_pic']['type'], $allowed_mime_types)) {
-            $errors[] = "Invalid file type. Only " . implode(', ', $allowed_mime_types) . " are allowed.";
-            return false;
           }
         
           // validate extension
           $extension = strtolower(pathinfo($_FILES['profile_pic']['name'], PATHINFO_EXTENSION));
           if (!in_array($extension, $allowed_extensions)) {
-            $errors[] = "Invalid file extension. Only " . implode(', ', $allowed_extensions) . " are allowed.";
-            return false;
+            $errors[] = "Invalid file extension. Only " . implode(', ', $allowed_extensions) . " are allowed."; 
           }
         
           // validate file size
           if ($_FILES['profile_pic']['size'] > $max_file_size) {
             $errors[] = "File size exceeds limit. Maximum allowed size is " . $max_file_size . " bytes.";
-            return false;
           }
 
-          else { // if no error occured 
-            return true; // true means 
-          }
+          return $errors; 
         
         }   
 }

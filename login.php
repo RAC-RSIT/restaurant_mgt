@@ -29,9 +29,6 @@
               </div>
             </form>
           </div>
-          <div class="card-footer text-center">
-            <p>Are you new? <a href="register.php">Register here</a></p>
-          </div>
         </div>
       </div>
     </div>
