@@ -15,8 +15,8 @@
 
 <html>
     <body class="container">
-        <h3>Employees</h3>
-        <table class="table table-hover table-bordered table-striped mb-3 text-center">
+        <h3>Employees <small>(order by designation)</small></h3>
+        <table class="table table-hover table-bordered table-striped my-3 text-center">
             <thead>
                 <tr>
                     <th>ID</th>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning"> 
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Meet up</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,11 +14,19 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link text-info" href="#">username: <?= isset($username) ? $username : NULL ?></a> <!-- $username is set in the SESSION -->
+                        <a class="nav-link text-primary" href="#">username: <?= isset($username) ? $username : NULL ?></a> <!-- $username is set in the SESSION -->
                     </li>
-                    <?php if($_SESSION['user']['user_role'] == 'admin') { ?>
+                    <?php if(isset($_SESSION['user']) and $_SESSION['user']['user_role'] == 'admin') {  ?>
                         <li class="nav-item">
                             <a class="nav-link" href="register.php">Register user</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="add_item.php">Add item</a>
+                        </li>
+                    <?php } ?>
+                    <?php if(isset($_SESSION['user']) and ($_SESSION['user']['user_role'] == 'admin' or $_SESSION['user']['user_role'] == 'manager')) {  ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="fetch_orders.php">Order history</a>
                         </li>
                     <?php } ?>
                     <li class="nav-item">

@@ -24,6 +24,21 @@
         include('fetch_employees.php');
     ?>
 
+    <!-- Items list -->
+    <?php if($user_role == 'admin' or $user_role == 'manager') 
+        include('fetch_items.php');
+    ?>
+
+    <!-- Add new order -->
+    <?php if($user_role == 'waiter') 
+        include('add_order.php');
+    ?>
+
+    <!-- Pending orders and add new order -->
+    <?php if($user_role == 'waiter' or $user_role == 'chef' or $user_role == 'manager') 
+        include('fetch_pending_orders.php'); 
+    ?>
+
 
 </body>
 </html>
