@@ -5,6 +5,7 @@
     $user = $_SESSION['user']; // user was stored in this SESSION from login_process.php 
     $username = $user['username']; 
     $user_role = $user['user_role']; 
+    $user_id = $user['id'];
 
 ?>
 

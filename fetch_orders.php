@@ -30,7 +30,17 @@
                 ?>
                     <tr>
                         <td><?= $order['id'] ?></td>
-                        <td><?= $order['items'] ?></td>
+                        <?php 
+                            $itemsJson = $order['items']; 
+                            $items = json_decode($itemsJson, true);
+                        ?>
+                        <td>
+                            <ol>
+                                <?php foreach($items as $item) { ?>
+                                    <li> <?= $item; ?> </li>
+                                <?php } ?>
+                            </ol>
+                        </td>
                         <td><?= $order['total_amount'] ?></td>
                         <td><?= $order['waiter_id'] ?></td>
                         <td><?= $order['table_no'] ?></td>

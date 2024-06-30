@@ -1,6 +1,5 @@
 <?php 
     include('db_connection.php'); 
-
     $sql = "SELECT * FROM ITEM ORDER BY name";
     $statement = $conn->prepare($sql); 
     $statement->execute(); 
