@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $item = $statement->fetch(PDO::FETCH_ASSOC);  
 
         $name = $item['name']; 
-        $quantity = $item['quantity']; 
+        $size = $item['size']; 
         $price = $item['price']; 
         $stock = $item['stock'];
     }
@@ -38,8 +38,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <input type="text" class="form-control" id="name" name="name" value="<?= $name ?>">
                     </div>
                     <div class="mb-3">
-                        <label for="quantity" class="form-label">quantity</label>
-                        <input type="text" class="form-control" id="quantity" name="quantity" value="<?= $quantity ?>">
+                        <label for="size" class="form-label">Size</label>
+                        <input type="text" class="form-control" id="size" name="size" value="<?= $size ?>">
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
