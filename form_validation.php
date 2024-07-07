@@ -60,6 +60,43 @@
         }
     }
 
+    function is_item_unique() {
+            
+        include('db_connection.php');
+
+        if(isset($_POST['name']) && isset($_POST['size'])) {
+            try {
+                $name = $_POST['name']; 
+                $size = $_POST['size']; 
+                
+                $sql = "SELECT * FROM ITEM WHERE ITEM.name = :name AND ITEM.size = :size"; 
+                
+                $statement = $conn->prepare($sql); 
+                $statement->bindParam(":name", $name); 
+                $statement->bindParam(":size", $size); 
+                $statement->execute();
+                
+                $item = $statement->fetch(PDO::FETCH_ASSOC);
+                
+                if($item) {
+                    return false; // false means the username is already taken
+                }
+                else {
+                    return true; // true means the username is unique 
+                }
+            }
+            catch(Exception $e) {
+                echo "error: " . $e->getMessage();
+            }
+        }
+    }
+
+    
+    function is_name_valid($name) {
+        $pattern = '/^[a-zA-Z]+[a-zA-Z0-9\s]*$/';
+        return preg_match($pattern, $name);
+    }      
+
 
     function check_file_validity() {
 

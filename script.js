@@ -5,6 +5,7 @@ const itemsInputField = document.getElementById('items');
 let itemsArray = [];
 
 addItemBtn.addEventListener('click', function() {
+
   const itemName = document.getElementById('item-name').value;
   const itemSize = document.getElementById('item-size').value;
   const itemQuantity = document.getElementById('quantity').value;
@@ -37,17 +38,11 @@ orderForm.addEventListener('submit', function(e) {
   // e.preventDefault();
 
   // Check if any items are added before submitting
-  if (orderList.children.length === 0) {
-    alert('Please add at least one item to your order.');
-    return;
+  if ( orderList.hasChildNodes() && orderList.children.length === 0 ) {
+      alert('Please add at least one item to your order.');
+      return;
   }
 
   const itemsJson = JSON.stringify(itemsArray); 
   itemsInputField.value = itemsJson;
-  // for(let i=0; i < itemsArray.length; i++) {
-  //   console.log(itemsArray[i]);
-  // }
-
-
-
 });

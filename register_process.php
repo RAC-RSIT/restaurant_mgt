@@ -14,17 +14,28 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $phone = $_POST['phone'];
         $user_role = $_POST['designation']; 
         $profile_pic = $_FILES['profile_pic'];
+        $is_active = true;
 
         // ***** validation *****
-        if(!is_username_unique()) {
-            echo "The username is already taken";
+        if( !is_username_unique() ) {
+            session_start(); 
+            $_SESSION['flash_message'] = "The username is already taken";
+            header('Location: register.php');
             exit;
         }
-        if(!is_email_unique()) {
-            echo "The email has already been used";
+        if( !is_email_unique() ) {
+            session_start(); 
+            $_SESSION['flash_message'] = "The email is already in use";
+            header('Location: register.php');
             exit;
         }
-        if(check_file_validity()) {
+        if( !is_name_valid($username) ) {
+            session_start(); 
+            $_SESSION['flash_message'] = "This username is not valid";
+            header('Location: register.php');
+            exit;
+        }
+        if( check_file_validity() ) {
             $errors = check_file_validity();
             foreach($errors as $err) {
                 echo $err . "<br>";
@@ -47,7 +58,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         // hashing the password 
         $password = password_hash($password, PASSWORD_DEFAULT);
     
-        $sql = "INSERT INTO USER (username, password, firstname, lastname, email, phone, profile_pic, user_role) VALUES (:username, :password, :firstname, :lastname, :email, :phone, :profile_pic, :user_role)"; 
+        $sql = "INSERT INTO USER (username, password, firstname, lastname, email, phone, profile_pic, user_role, is_active) VALUES (:username, :password, :firstname, :lastname, :email, :phone, :profile_pic, :user_role, :is_active)"; 
 
         $statement = $conn->prepare($sql);
 
@@ -59,8 +70,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindParam(":phone", $phone);
         $statement->bindParam(":profile_pic", $target_file);
         $statement->bindParam(":user_role", $user_role);
+        $statement->bindParam(":is_active", $is_active);
 
         $statement->execute(); 
+
+        $username = $_SESSION['username'];
+        $user_role = $_SESSION['user_role'];
+        $_SESSION['flash_message'] = "User successfully registered";
 
         // redirect to dashboard after registering new user
         header('Location: dashboard.php');

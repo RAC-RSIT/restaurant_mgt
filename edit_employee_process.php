@@ -22,6 +22,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $statement->execute();
 
+        // starting a new session for keeping the success message in SESSION STORAGE
+        session_start();
+        $_SESSION['flash_message'] = "successfully updated the record of " . $firstname . " " . $lastname;
+
         // go to dashboard.php
         header("Location: dashboard.php");
     }
