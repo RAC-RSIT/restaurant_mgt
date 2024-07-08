@@ -7,6 +7,20 @@
     $orders = $statement->fetchAll(PDO::FETCH_ASSOC);  
 
     session_start();
+
+    // show flash_message if there's any
+    if(isset($_SESSION['flash_message'])) {
+        $message = $_SESSION['flash_message'];
+        unset($_SESSION['flash_message']);
+        echo "<h3>" . $message . "</h3>";
+    }
+    
+    if( !$_SESSION['isLoggedIn'] || ( $_SESSION['user_role'] !== 'admin' && $_SESSION['user_role'] !== 'manager' ) ) {
+        $_SESSION['flash_message'] = "403: unauthorized access request";
+        //redirect to login page
+        header('Location: login.php');
+    }
+
     $username = $_SESSION['username'];
     $user_role = $_SESSION['user_role'];
 ?>

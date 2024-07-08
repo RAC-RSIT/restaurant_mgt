@@ -1,18 +1,24 @@
 <?php 
 
-    session_start();    
+    session_start(); 
+
+    // show flash_message if there's any
+    if(isset($_SESSION['flash_message'])) {
+        $message = $_SESSION['flash_message'];
+        unset($_SESSION['flash_message']);
+        echo "<h3 class='text-success'>" . $message . "</h3>";
+     }
+    
+    if(!$_SESSION['isLoggedIn']) {
+        $_SESSION['flash_message'] = "403: unauthorized access request";
+        //redirect to login page
+        header('Location: login.php');
+      }
+
     $user = $_SESSION['user']; // user was stored in this SESSION from login_process.php 
     $username = $_SESSION['username']; 
     $user_role = $_SESSION['user_role']; 
     $user_id = $_SESSION['user_id']; 
-
-    // show flash_message if there's any
-    if(isset($_SESSION['flash_message'])) {
-       $message = $_SESSION['flash_message'];
-       unset($_SESSION['flash_message']);
-       echo "<h3 class='text-success'>" . $message . "</h3>";
-    }
-
 ?>
 
 <?php include('header.php'); ?>
