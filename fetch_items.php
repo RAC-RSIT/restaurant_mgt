@@ -1,6 +1,6 @@
 <?php 
     include('db_connection.php'); 
-    $sql = "SELECT * FROM ITEM ORDER BY name";
+    $sql = "SELECT * FROM ITEM WHERE is_active=1 ORDER BY name";
     $statement = $conn->prepare($sql); 
     $statement->execute(); 
     $items = $statement->fetchAll(PDO::FETCH_ASSOC);  
@@ -40,10 +40,10 @@
                     </form>
                 </td>
                 <td>
-                    <form action="delete_item.php" method="POST">
+                    <form id="deleteItemForm<?= $item['id'] ?>" class="deleteItemForm" action="delete_item.php" method="POST">
                         <!-- this hidden input field is used to pass the id of the clicked record when the form is submitted -->
                         <input type="hidden" name="id" value="<?= $item['id']; ?>"> 
-                        <input type="submit" class="btn btn-danger" name="delete-item" value="REMOVE">
+                        <button type="submit" id="deleteItemBtn<?= $item['id'] ?>" class="deleteItemBtn btn btn-danger"  name="delete-item">Delete</button>
                     </form>
                 </td>
                 <?php } ?>

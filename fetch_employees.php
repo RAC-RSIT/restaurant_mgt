@@ -51,10 +51,10 @@
                         </form>
                     </td>
                     <td>
-                        <form action="delete_employee.php" method="POST">
+                        <form id="deleteUserForm<?= $employee['id'] ?>" class="deleteUserForm" action="delete_employee.php" method="POST">
                             <!-- this hidden input field is used to pass the id of the clicked record when the form is submitted -->
                             <input type="hidden" name="id" value="<?= $employee['id']; ?>"> 
-                            <input type="submit" class="btn btn-danger" name="delete-employee" value="DELETE">
+                            <button id="deleteUserBtn<?= $employee['id'] ?>" class="deleteUserBtn btn btn-danger" name="delete-employee">Delete</button>
                         </form>
                     </td>
                     <?php } ?>
